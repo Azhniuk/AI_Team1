@@ -2,11 +2,10 @@ from copy import deepcopy
 from typing import Optional, Dict, List
 
 # current number
-# next numbers
 # bank points
 # p1 points
 # p2 points
-State = Dict[int, List[int], int, int , int]
+State = [int, int, int , int]
 
 
 
