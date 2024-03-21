@@ -45,7 +45,7 @@ class Node:
                 newbank+=1
 
             child1 = [newnumber,newbank,hum,bot]
-
+            self.children.append(child1)
 
         # check if divisible by 3
         if self.state[0] % 3 == 0:
@@ -69,7 +69,7 @@ class Node:
                 newbank+=1
 
             child2 = [newnumber,newbank,hum,bot]
-        # check if end node
+            self.children.append(child2)
 
 
     def is_terminal(self) -> bool:
