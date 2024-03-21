@@ -49,7 +49,7 @@ class Node:
                 newbank+=1
 
             childState = [newnumber,newbank,hum,bot]
-            self.children.append(Node(childState,humanTurn))
+            self.children.append(Node(childState,not humanTurn))
 
         # check if divisible by 3
         if self.state[0] % 3 == 0:
@@ -73,7 +73,7 @@ class Node:
                 newbank+=1
 
             childState = [newnumber,newbank,hum,bot]
-            self.children.append(Node(childState,humanTurn))
+            self.children.append(Node(childState,not humanTurn))
 
 
     def is_terminal(self) -> bool:
@@ -82,6 +82,10 @@ class Node:
         return False
 
     def __print__(self):
+        if self.humanTurn:
+            print("human turn now.")
+        else:
+            print("bot turn now.")
         print("Current number :",self.state[0])
         print("Bank points    :",self.state[1])
         print("P1 points      :",self.state[2])
