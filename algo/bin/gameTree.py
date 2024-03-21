@@ -9,8 +9,9 @@ State = [int, int,int ,int]
 
 
 StartNumber = 14334
+humanTurn = True
 
-StartState = [StartState,0,0,0]
+StartState = [StartNumber,0,0,0]
 
 class Node:
     def __init__(self, state: State, humanTurn: bool,parent: Optional['Node'] = None):
@@ -44,8 +45,8 @@ class Node:
             if newnumber%5 == 0:
                 newbank+=1
 
-            child1 = [newnumber,newbank,hum,bot]
-            self.children.append(child1)
+            childState = [newnumber,newbank,hum,bot]
+            self.children.append(Node(childState,humanTurn))
 
         # check if divisible by 3
         if self.state[0] % 3 == 0:
@@ -68,8 +69,8 @@ class Node:
             if newnumber%5 == 0:
                 newbank+=1
 
-            child2 = [newnumber,newbank,hum,bot]
-            self.children.append(child2)
+            childState = [newnumber,newbank,hum,bot]
+            self.children.append(Node(childState,humanTurn))
 
 
     def is_terminal(self) -> bool:
@@ -87,7 +88,7 @@ class Node:
 class GameTree:
 
     def __init__(self):
-        self.root = Node(StartState)
+        self.root = Node(StartState,humanTurn)
         self.node_count = 0
 
     def generate_tree(self):
@@ -99,3 +100,7 @@ class GameTree:
         self.node_count += 1
         for child in node.children:
             self.__expand(child)
+
+gt = GameTree()
+gt.generate_tree();
+
