@@ -1,5 +1,5 @@
-from copy import deepcopy
 from typing import Optional, Dict, List
+import random
 
 # current number
 # bank points
@@ -7,8 +7,11 @@ from typing import Optional, Dict, List
 # p2(bot) points
 State = [int, int,int ,int]
 
+x = 1
+while x % 6 != 0:
+    x = random.randint(10000,20000)
 
-StartNumber = 14334
+StartNumber = x
 humanTurn = True
 
 StartState = [StartNumber,0,0,0]
@@ -50,7 +53,7 @@ class Node:
 
         # check if divisible by 3
         if self.state[0] % 3 == 0:
-            newnumber = self.state[0]//2
+            newnumber = self.state[0]//3
             newbank = self.state[1]
             hum = self.state[2]
             bot = self.state[3]
@@ -83,6 +86,7 @@ class Node:
         print("Bank points    :",self.state[1])
         print("P1 points      :",self.state[2])
         print("P2 points      :",self.state[3])
+        print()
 
 
 class GameTree:
@@ -97,10 +101,16 @@ class GameTree:
 
     def __expand(self, node: Node):
         node.expand()
+        node.__print__()
         self.node_count += 1
         for child in node.children:
             self.__expand(child)
 
+    def print_root(self):
+        self.root.__print__()
+
+
 gt = GameTree()
-gt.generate_tree();
+gt.generate_tree()
+print(gt.node_count)
 
