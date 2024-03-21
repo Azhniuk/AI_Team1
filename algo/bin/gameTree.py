@@ -49,7 +49,26 @@ class Node:
 
         # check if divisible by 3
         if self.state[0] % 3 == 0:
+            newnumber = self.state[0]//2
+            newbank = self.state[1]
+            hum = self.state[2]
+            bot = self.state[3]
 
+            if newnumber%2 == 0: # even
+                if self.humanTurn:
+                    hum += 1
+                else: 
+                    bot += 1
+            else: # odd 
+                if self.humanTurn:
+                    hum -= 1
+                else:
+                    bot -= 1
+
+            if newnumber%5 == 0:
+                newbank+=1
+
+            child2 = [newnumber,newbank,hum,bot]
         # check if end node
 
 
