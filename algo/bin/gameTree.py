@@ -113,24 +113,48 @@ class GameTree:
     def print_root(self):
         self.root.__print__()
 
-
+    # returns a tuple, the value expected and the direction to take
+    
+    # for the expected value :
     # 1 means bot victory
     # -1 means human victory
     # 0 means draw
-    def minimax(self, node=self.root, mini=True):
-        if len(node.children) == 0:
-            if node.state[2] > node.state[3]: # human victory
-                return -1
-            elif node.state[2] < node.state[3]: # bot victory
-                return 1
-            else: # draw
-                return 0
-        if mini:
 
+    # for the direction to take
+    # 0 means take the only viable option
+    # 1 means take the left aka /2
+    # 2 means take the right aka /3
+
+    def minimax(self, node=None, mini=True):
+        if node == None:
+            node = self.root
+        n = len(node.children)
+        if n == 0:
+            if node.state[2] > node.state[3]: # human victory
+                return -1,0
+            elif node.state[2] < node.state[3]: # bot victory
+                return 1,0
+            else: # draw
+                return 0,0
+        if n == 1:
+            return self.minimax(node.children[0],not mini)[0],0
+        left = self.minimax(node.children[0],not mini)[0]
+        right = self.minimax(node.children[1],not mini)[0]
+        if left < right:
+            if mini:
+                return left,1
+            else:
+                return right,2
+        else:
+            if mini:
+                return right,2
+            else:
+                return left,1
 
 
 
 gt = GameTree()
 gt.generate_tree()
 print(gt.node_count)
+print(gt.minimax())
 
