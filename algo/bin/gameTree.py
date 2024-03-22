@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Optional, List
 import random
 
 # current number
@@ -112,6 +112,22 @@ class GameTree:
 
     def print_root(self):
         self.root.__print__()
+
+
+    # 1 means bot victory
+    # -1 means human victory
+    # 0 means draw
+    def minimax(self, node=self.root, mini=True):
+        if len(node.children) == 0:
+            if node.state[2] > node.state[3]: # human victory
+                return -1
+            elif node.state[2] < node.state[3]: # bot victory
+                return 1
+            else: # draw
+                return 0
+        if mini:
+
+
 
 
 gt = GameTree()
