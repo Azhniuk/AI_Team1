@@ -2,26 +2,39 @@ import pygame
 import random
 import time
 
+current_time = int(time.time())
+random.seed(current_time)
 
 pygame.init()
 
+
 def get_5_random_numbers():
-    def gen_number():
-        number = 1
-        while number < 10000:
-            number *= random.randint(2, 3)
-            if number > 20000:
-                number = 1
+    i = 0
+    l = []
+    while i < 5:
+        x = random.randint(10000,20000)
+        if x % 6 == 0:
+            l.append(x)
+            i+=1
+    return l
 
-        return number
+# def get_5_random_numbers():
+#     def gen_number():
+#         number = 1
+#         while number < 10000:
+#             number *= random.randint(2, 3)
+#             if number > 20000:
+#                 number = 1
 
-    numbers = []
-    while len(numbers) < 5:
-        number = gen_number()
-        if number not in numbers:
-            numbers.append(number)
+#         return number
 
-    return numbers
+#     numbers = []
+#     while len(numbers) < 5:
+#         number = gen_number()
+#         if number not in numbers:
+#             numbers.append(number)
+
+#     return numbers
 
 class Node:
     def __init__(self, number, ai_hum_scores, bank, isHumanTurn, divisor):
