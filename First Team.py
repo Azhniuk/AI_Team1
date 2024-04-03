@@ -13,7 +13,7 @@ def get_5_random_numbers():
     l = []
     while i < 5:
         x = random.randint(10000,20000)
-        if x % 6 == 0:
+        if x % 6 == 0 && x not in l:
             l.append(x)
             i+=1
     return l
