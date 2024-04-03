@@ -2,13 +2,12 @@ import pygame
 import random
 import time
 
-current_time = int(time.time())
-random.seed(current_time)
 
 pygame.init()
 
 
 def get_5_random_numbers():
+    random.seed(int(time.time()))
     i = 0
     l = []
     while i < 5:
