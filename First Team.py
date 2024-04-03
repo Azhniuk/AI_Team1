@@ -6,34 +6,34 @@ import time
 pygame.init()
 
 
-def get_5_random_numbers():
-    random.seed(int(time.time()))
-    i = 0
-    l = []
-    while i < 5:
-        x = random.randint(10000,20000)
-        if x % 2 == 0 and x % 3 == 0 and x not in l:
-            l.append(x)
-            i+=1
-    return l
-
 # def get_5_random_numbers():
-#     def gen_number():
-#         number = 1
-#         while number < 10000:
-#             number *= random.randint(2, 3)
-#             if number > 20000:
-#                 number = 1
+#     random.seed(int(time.time()))
+#     i = 0
+#     l = []
+#     while i < 5:
+#         x = random.randint(10000,20000)
+#         if x % 2 == 0 and x % 3 == 0 and x not in l:
+#             l.append(x)
+#             i+=1
+#     return l
 
-#         return number
+def get_5_random_numbers():
+    def gen_number():
+        number = 1
+        while number < 10000:
+            number *= random.randint(2, 3)
+            if number > 20000:
+                number = 1
 
-#     numbers = []
-#     while len(numbers) < 5:
-#         number = gen_number()
-#         if number not in numbers:
-#             numbers.append(number)
+        return number
 
-#     return numbers
+    numbers = []
+    while len(numbers) < 5:
+        number = gen_number()
+        if number not in numbers:
+            numbers.append(number)
+
+    return numbers
 
 class Node:
     def __init__(self, number, ai_hum_scores, bank, isHumanTurn, divisor):
