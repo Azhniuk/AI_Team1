@@ -158,6 +158,14 @@ class Game_logic:
                 best_move = child
         return best_move
 
+    def best_move_heuristic(self, node):
+        if node.number % 3 == 0:
+            return 3
+        elif node.number % 2 == 0:
+            return 2
+        return -1
+
+
 
 class Player:
     def __init__(self):
