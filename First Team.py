@@ -5,18 +5,6 @@ import time
 
 pygame.init()
 
-
-# def get_5_random_numbers():
-#     random.seed(int(time.time()))
-#     i = 0
-#     l = []
-#     while i < 5:
-#         x = random.randint(10000,20000)
-#         if x % 2 == 0 and x % 3 == 0 and x not in l:
-#             l.append(x)
-#             i+=1
-#     return l
-
 def get_5_random_numbers():
     def gen_number():
         number = 1
@@ -211,6 +199,14 @@ NUMBER_BUTTON_X = SAVE_BUTTON_X/4*3
 NUMBER_BUTTON_Y = SAVE_BUTTON_Y - 50
 number_button_rect = pygame.Rect(NUMBER_BUTTON_X, NUMBER_BUTTON_Y - 20, NUMBER_BUTTON_WIDTH, NUMBER_BUTTON_HEIGHT)
 
+
+# Restart Button parameters
+RESTART_BUTTON_WIDTH = 100
+RESTART_BUTTON_HEIGHT = 25
+RESTART_BUTTON_X = SCREEN_WIDTH - RESTART_BUTTON_WIDTH - 50 # 10 px from the right side of the screen
+RESTART_BUTTON_Y = 30 # 10 px from the top of the screen
+restart_button_rect = pygame.Rect(RESTART_BUTTON_X, RESTART_BUTTON_Y, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
+
 # Fonts
 font = pygame.font.Font(None, 36)
 font_small = pygame.font.Font(None, 26)
@@ -258,6 +254,7 @@ def draw_checkbox(checkbox_text, font, color, surface, x, y, checkbox_width=20, 
 
 # Function to draw the dialog window
 def draw_dialog():
+    SCREEN.fill(BLACK) 
     pygame.draw.rect(SCREEN, WHITE, (DIALOG_X, DIALOG_Y, DIALOG_WIDTH, DIALOG_HEIGHT))
     draw_text("Game Settings", font, BLACK, SCREEN, DIALOG_X + DIALOG_PADDING, DIALOG_Y + DIALOG_PADDING)
     human_turn_checkbox = draw_checkbox("Human's Turn", checkbox_font, BLACK, SCREEN, DIALOG_X + DIALOG_PADDING,
@@ -315,6 +312,21 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 mouse_pos = event.pos
+                if restart_button_rect.collidepoint(mouse_pos):
+                    player_score = 0
+                    ai_score = 0
+                    bank = 0
+                    game_started = False
+                    whosfirst = True
+                    algo = "Alpha-Beta"
+                    n = 0
+                    chosen_number = 12344
+                    numbers = get_5_random_numbers()
+                    human_turn_checkbox, ai_turn_checkbox, algo_checkbox, number_checkbox = draw_dialog()
+
+            
+            if event.button == 1:
+                mouse_pos = event.pos
                 if human_turn_checkbox.collidepoint(mouse_pos):
                     whosfirst = True
                 elif ai_turn_checkbox.collidepoint(mouse_pos):
@@ -336,6 +348,9 @@ while running:
 
     if game_started:
         SCREEN.fill(WHITE)
+        pygame.draw.rect(SCREEN, BLACK, restart_button_rect)
+        draw_text("Restart", font_small, WHITE, SCREEN, RESTART_BUTTON_X+18, RESTART_BUTTON_Y+5)
+        
         if current_player == player1:
             # Human player's turn
             mouse_pos = pygame.mouse.get_pos()
